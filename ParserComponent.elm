@@ -4,16 +4,17 @@ import Html exposing (Html, Attribute, div, input, text, p)
 import Html.Attributes exposing (style, placeholder)
 import Html.App exposing (beginnerProgram, map)
 import Html.Events exposing (onClick, onInput)
+import String
 
 import PlayerParser
 
 -- Main
-main =
-    Html.App.beginnerProgram
-        { model = init ""
-        , view = view
-        , update = update
-        }
+--main =
+--    Html.App.beginnerProgram
+--        { model = init ""
+--        , view = view
+--        , update = update
+--        }
 
 -- MODEL
 type alias Model =
@@ -42,17 +43,27 @@ update msg model =
 
 -- VIEW
 
+-- react 100%
+sentence player =
+    p [ cardStyle ] [ text player ]
+
 view model =   
-  let 
-    player = 
-      PlayerParser.spellPlayer model.content
+  --let 
+  --  player = 
+  --    PlayerParser.spellPlayer model.content
+  let
+    players =
+        model.content
+            |> String.split ","
+            |> List.map String.trim
+            |> List.map PlayerParser.spellPlayer
   in
   div [ mainStyle ]
     [ input[ inputStyle 
     , placeholder "Type your player ..."
     , onInput Change
     ] []
-    , p [cardStyle] [ text player]
+    , div [] (List.map sentence players)
 
     ]
 

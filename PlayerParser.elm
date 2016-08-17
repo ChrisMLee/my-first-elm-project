@@ -2,6 +2,7 @@ module PlayerParser exposing (..)
 
 import Html exposing (text)
 import String
+import List
 
 type Position = Forward | Midfielder | Defender | Goalie
 type Club = Barcelona | Atletico | Sevilla | Real
